@@ -1,9 +1,69 @@
 html, body {
-  font-family: Arial, sans-serif;
+  font-family: monospace, Arial, sans-serif;
+  text-transform: uppercase;
   height: 100%;
   margin: 0;
   padding: 0;
+  background: #efefef;
 }
+
+#title {
+  display: inline;
+  letter-spacing: 0.2em;
+  margin-top: 10px;
+  margin-left: 70px;
+}
+
+#title span {
+  color: #937e6e;
+}
+
+#nav-button {
+  outline: none;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 10px 5px 10px;
+  background: #fcfcfc;
+  border-radius: 2px;
+  margin-right: 20px;
+  float: right;
+  border: 1px solid #c9c9c9;
+  transition: 1s;
+}
+
+input[type="button"] {
+    border: 1px solid #c9c9c9;
+    padding:7px 10px 7px 10px;
+    margin: 10px;
+    background: #f7f7f7;
+    transition: 1s;
+    outline: none;
+}
+
+#nav-button:hover, input[type="button"]:hover {
+  background: #757575;
+  transition: 1s;
+}
+
+#nav-button:active, input[type="button"]:active {
+  background: #757575;
+}
+
+.nav {
+  padding-top: 10px;
+  background: #f7f7f7;
+  height: 34px;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+input[type="text"] {
+  border: 1px solid #c9c9c9;
+  border-radius: 3px;
+  padding: 5px;
+  display: inline-block;
+  width: 100%;
+}
+
 .container {
   height: 100%;
   position: relative;
@@ -19,7 +79,7 @@ h1 {
 }
 #hide-listings,
 #show-listings {
-  width: 48%;
+  width: 42%;
 }
 hr {
   background: #D0D7D9;
@@ -29,16 +89,17 @@ hr {
 }
 
 #map {
-  bottom:0px;
-  height: 100%;
-  left: 362px;
+  top: 45px;
+  bottom: 0px;
+  left: 0px;
   position: absolute;
-  right: 0px;
+  right: 362px;
 }
-.options-box {
-  background: #fff;
-  border-right: 1px solid #999;
-  border-left: 1px solid #999;
+.options-box, .coffee-shop-list {
+  float: right;
+  background: #efefef;
+  border-right: 1px solid #c9c9c9;
+  border-left: 1px solid #c9c9c9;
   line-height: 35px;
   padding: 10px 10px 30px 10px;
   text-align: left;
@@ -47,6 +108,55 @@ hr {
   padding-top: 0px;
   height: 100%;
 }
+
+.coffee-shop-list ul {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+ul {
+  list-style: none;
+  line-height: 2.2em;
+  font-size: 12px;
+  border: 1px solid #c9c9c9;
+  padding: 20px 5px 20px 5px;
+  border-radius: 4px;
+}
+
+li {
+  cursor: pointer;
+  padding-left: 10px;
+  border: 1px solid #c9c9c9;
+  margin: 6px 20px 6px 20px;
+  transition: 1s;
+}
+
+li:hover {
+  background: #a8a8a8;
+  transition: 1s;
+}
+
+input[type="text"]#filterInput {
+  display: inline;
+  width: 270px;
+  border-radius: 0;
+  margin-right: 0;
+  /*padding-right: 10px;*/
+}
+
+#filterButton {
+  display: inline;
+  border: 1px solid #c9c9c9;
+  background: white;
+  padding: 6px;
+  width: 45px;
+  margin: 0;
+}
+
+#coffeeShopMenuTitle {
+  text-align: center;
+}
+
 #pano {
   width: 200px;
   height: 200px;
@@ -59,7 +169,6 @@ hr {
   font-size: 12px;
 }
 #toggle-drawing {
-  width: 27%;
   position: relative;
   margin-left: 10px;
 }
