@@ -22,11 +22,11 @@ html, body {
   outline: none;
   font-size: 14px;
   font-weight: bold;
-  padding: 4px 10px 5px 10px;
+  padding: 3px 10px 4px 10px;
   background: #fcfcfc;
   border-radius: 2px;
-  margin-right: 20px;
-  float: right;
+  float: left;
+  margin-left: 50px;
   border: 1px solid #c9c9c9;
   transition: 1s;
 }
@@ -93,10 +93,14 @@ hr {
   bottom: 0px;
   left: 0px;
   position: absolute;
-  right: 362px;
+  right: 0px;
 }
 .options-box, .coffee-shop-list {
+  position: absolute;
+  z-index: 10;
   float: right;
+  right: 0;
+  top: 0;
   background: #efefef;
   border-right: 1px solid #c9c9c9;
   border-left: 1px solid #c9c9c9;

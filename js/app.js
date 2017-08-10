@@ -64,25 +64,42 @@ var ViewModel = function() {
 
   this.inputFilterSubmit = function() {
     hideMarkers(markers);
-    this.filterItems().forEach((filterLocation) => {
+    if (this.menu.inputFilter() == "") {
+      showListings();
       this.locations().forEach((location) => {
-        if (filterLocation.title === location.title) {
-          location.itemVisible(true);
-          this.viewLocation(location);
-        } else if (this.menu.inputFilter() == "") {
-          showListings();
-          location.itemVisible(true);
-        } else {
-          location.itemVisible(false);
-        }
+        location.itemVisible(true);
       })
-    })
+    } else {
+      this.filterItems().forEach((filterLocation) => {
+        this.locations().forEach((location) => {
+          if (filterLocation.title === location.title) {
+            location.itemVisible(true);
+            this.viewLocation(location);
+          } else {
+            location.itemVisible(false);
+          }
+        })
+      })
+    }
   }
 
   this.toggleDisplay = function() {
-    console.log(this.locations.length)
-    this.menu.optionsBoxVisible(!this.menu.optionsBoxVisible());
-    this.menu.coffeeShopList(!this.menu.coffeeShopList());
+    if (this.menu.invisible() === false) {
+      this.menu.optionsBoxVisible(false);
+      this.menu.coffeeShopList(true);
+      this.menu.invisible(true);
+    } else if (this.menu.coffeeShopList() === true) {
+      this.menu.coffeeShopList(false);
+      this.menu.optionsBoxVisible(true);
+    } else if (this.menu.invisible() === true) {
+      this.menu.coffeeShopList(false);
+      this.menu.optionsBoxVisible(false);
+      this.menu.invisible(false);
+    }
+
+    if (this.menu.visibility === true) {
+
+    }
   }
 
   this.viewLocation = function(data) {
@@ -96,8 +113,9 @@ var ViewModel = function() {
 };
 
 var Menu = function() {
+  this.invisible = ko.observable(false);
   this.optionsBoxVisible = ko.observable(false);
-  this.coffeeShopList = ko.observable(true);
+  this.coffeeShopList = ko.observable(false);
   this.inputFilter = ko.observable("");
 }
 

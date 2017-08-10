@@ -1,0 +1,22 @@
+@media (max-width: 800px) and (min-width: 320px) {
+  #title {
+    font-size: 14px;
+  }
+
+  .options-box, .coffee-shop-list {
+    z-index: 1;
+    width: 300px;
+  }
+
+  #map {
+    top: 45px;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    right: 0px;
+  }
+
+  #nav-button {
+    margin-left: 5px;
+  }
+}
