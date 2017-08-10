@@ -8,6 +8,8 @@ var placeMarkers = [];
 
 var coffeePlaces = [];
 
+var largeInfowindow;
+
 function initMap() {
 
   var styles = [
@@ -211,7 +213,7 @@ function initMap() {
   // Normally we'd have these in a database instead.
   var locations = data
 
-  var largeInfowindow = new google.maps.InfoWindow();
+  largeInfowindow = new google.maps.InfoWindow();
   // Initialize the drawing manager.
   var drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,

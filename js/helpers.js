@@ -58,12 +58,15 @@ function showListings() {
 // This function will loop through the markers array and display them all.
 function showListing(marker) {
   var bounds = new google.maps.LatLngBounds();
-
   marker.setMap(map);
 
   bounds.extend(marker.position);
   map.fitBounds(bounds);
   map.setZoom(15);
+  markers.forEach((marker) => {
+    largeInfowindow.close();
+  });
+  populateInfoWindow(marker, largeInfowindow);
 
 }
 // This function will loop through the listings and hide them all.

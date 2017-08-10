@@ -1,7 +1,7 @@
 var data = data;
 
-
 var ViewModel = function() {
+
   this.menu = new Menu();
 
   this.locations = ko.observableArray();
@@ -9,6 +9,19 @@ var ViewModel = function() {
   data.forEach((location) => {
     this.locations.push(new CoffeeShop(location))
   })
+
+
+  this.filterItems = ko.computed(function() {
+    var filter = this.menu.inputFilter();
+    filter = filter.toLowerCase();
+    if (!filter) { return this.locations(); }
+
+    return this.locations().filter(function(i) {
+      console.log(i.title)
+      return i.title.toLowerCase().indexOf(filter) > -1;
+    });
+  }, this);
+
 
   this.locations().sort((a, b) => {
     if (a.title < b.title) {
@@ -48,6 +61,24 @@ var ViewModel = function() {
     textSearchPlaces();
   }
 
+
+  this.inputFilterSubmit = function() {
+    hideMarkers(markers);
+    this.filterItems().forEach((filterLocation) => {
+      this.locations().forEach((location) => {
+        if (filterLocation.title === location.title) {
+          location.itemVisible(true);
+          this.viewLocation(location);
+        } else if (this.menu.inputFilter() == "") {
+          showListings();
+          location.itemVisible(true);
+        } else {
+          location.itemVisible(false);
+        }
+      })
+    })
+  }
+
   this.toggleDisplay = function() {
     console.log(this.locations.length)
     this.menu.optionsBoxVisible(!this.menu.optionsBoxVisible());
@@ -67,12 +98,14 @@ var ViewModel = function() {
 var Menu = function() {
   this.optionsBoxVisible = ko.observable(false);
   this.coffeeShopList = ko.observable(true);
+  this.inputFilter = ko.observable("");
 }
 
 var CoffeeShop = function(data) {
   this.title = data.title;
   this.location = data.location;
   this.id = data.id;
+  this.itemVisible = ko.observable(true);
 }
 
 ko.applyBindings(new ViewModel())

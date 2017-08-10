@@ -49,10 +49,10 @@
       </div>
       <div class="coffee-shop-list" data-bind="visible: menu.coffeeShopList">
         <h2 id="coffeeShopMenuTitle">Coffee Shops</h2>
-        <input type="text" name="" value="" id="filterInput">
-        <button type="button" name="button" id="filterButton">Filter</button>
+        <input type="text" name="" value="" id="filterInput" data-bind="value: menu.inputFilter">
+        <button type="button" name="button" id="filterButton" data-bind="click: inputFilterSubmit">Filter</button>
         <ul data-bind="foreach: locations">
-          <li data-bind="text: title, click: $parent.viewLocation"></li>
+          <li data-bind="text: title, click: $parent.viewLocation, visible: itemVisible"></li>
         </ul>
       </div>
       <div class="nav">
