@@ -1,7 +1,7 @@
 # PORTLAND COFFEE BREWRU
 
 This maps application uses the Google Maps API to display local coffee shops in Portland, Oregon.
-The Numbers API (numbersapi.com) was used as well to generate facts about a random number to be viewed in an
+The Numbers API (numbersapi.com) is used as well to generate facts about a random number to be viewed in an
 infowindow when a marker is clicked. These facts are meant to be read as you enjoy your cup of coffee.
 
 ## Instructions
