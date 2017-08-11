@@ -81,11 +81,18 @@ h1 {
 #show-listings {
   width: 42%;
 }
+
 hr {
   background: #D0D7D9;
   height: 1px;
   margin: 20px 0 20px 0;
   border: none;
+}
+
+.randomFact {
+  width: 200px;
+  font-style: italic;
+  font-size: 12px;
 }
 
 #map {
@@ -111,6 +118,10 @@ hr {
   padding-bottom: 0px;
   padding-top: 0px;
   height: 100%;
+}
+
+.options-box {
+  text-align: center;
 }
 
 .coffee-shop-list ul {
@@ -154,7 +165,7 @@ input[type="text"]#filterInput {
   margin: 0;
 }
 
-#coffeeShopMenuTitle {
+.coffeeShopMenuTitle {
   text-align: center;
 }
 
@@ -164,7 +175,7 @@ input[type="text"]#filterInput {
 }
 #places-search,
 #search-within-time-text {
-  width: 84%;
+  width: 70%;
 }
 .text {
   font-size: 12px;
@@ -174,7 +185,7 @@ input[type="text"]#filterInput {
   margin-left: 10px;
 }
 #zoom-to-area-text {
-  width: 70%;
+  width: 55%;
 }
 #zoom-to-area {
   width: 24%;

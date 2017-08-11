@@ -19,4 +19,9 @@
   #nav-button {
     margin-left: 5px;
   }
+
+  #hide-listings,
+  #show-listings {
+    width: 40%;
+  }
 }

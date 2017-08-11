@@ -1,3 +1,20 @@
+// Generates random fact about a number using the numbersapi.
+// This will display inside of a marker infowindow.
+function randomFactsGenerator(min, max) {
+  var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  var url = 'http://numbersapi.com/' + randomNumber;
+  $.ajax({
+  	url: url,
+    success: function(data) {
+      if (data.length > 0) {
+        $('#randomFact').text("\"" + data + "\"");
+      } else {
+        $('#randomFact').text("Sorry, fact could not be loaded...");
+      }
+    }
+  })
+}
+
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
@@ -21,7 +38,8 @@ function populateInfoWindow(marker, infowindow) {
         var nearStreetViewLocation = data.location.latLng;
         var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
-          infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+          infowindow.setContent('<div align="center"><div><h3>' + marker.title + '</h3></div><div id="pano"></div><hr>'
+                                  + '<p><strong>Random Fact</strong></p>' + '<div id="randomFact" class="randomFact"></div></div>');
           var panoramaOptions = {
             position: nearStreetViewLocation,
             pov: {
@@ -29,6 +47,7 @@ function populateInfoWindow(marker, infowindow) {
               pitch: 30
             }
           };
+          randomFactsGenerator(1, 100);
         var panorama = new google.maps.StreetViewPanorama(
           document.getElementById('pano'), panoramaOptions);
       } else {
@@ -64,8 +83,10 @@ function showListing(marker) {
   map.fitBounds(bounds);
   map.setZoom(15);
   markers.forEach((marker) => {
+    marker.setAnimation(null);
     largeInfowindow.close();
   });
+  marker.setAnimation(google.maps.Animation.BOUNCE);
   populateInfoWindow(marker, largeInfowindow);
 
 }
