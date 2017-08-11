@@ -7,8 +7,8 @@ var ViewModel = function() {
   this.locations = ko.observableArray();
 
   data.forEach((location) => {
-    this.locations.push(new CoffeeShop(location))
-  })
+    this.locations.push(new CoffeeShop(location));
+  });
 
 
   this.filterItems = ko.computed(function() {
@@ -17,7 +17,7 @@ var ViewModel = function() {
     if (!filter) { return this.locations(); }
 
     return this.locations().filter(function(i) {
-      console.log(i.title)
+      console.log(i.title);
       return i.title.toLowerCase().indexOf(filter) > -1;
     });
   }, this);
@@ -30,45 +30,45 @@ var ViewModel = function() {
     if (a.title > b.title) {
       return 1;
     }
-    return 0
-  })
+    return 0;
+  });
 
   // This function will loop through the markers array and display them all.
   this.showListings = function() {
     showListings();
-  }
+  };
 
   // This function will loop through the listings and hide them all.
   this.hideListings = function() {
-    hideMarkers(markers)
+    hideMarkers(markers);
   };
 
   this.toggleDrawing = function() {
     toggleDrawing(drawingManager);
-  }
+  };
 
   this.zoomToArea = function() {
     zoomToArea();
-  }
+  };
 
   this.searchWithinTime = function() {
     searchWithinTime();
-  }
+  };
 
   // Listen for the event fired when the user selects a prediction and clicks
   // "go" more details for that place.
   this.textSearchPlaces = function() {
     textSearchPlaces();
-  }
+  };
 
 
   this.inputFilterSubmit = function() {
     hideMarkers(markers);
-    if (this.menu.inputFilter() == "") {
+    if (this.menu.inputFilter() === "") {
       showListings();
       this.locations().forEach((location) => {
         location.itemVisible(true);
-      })
+      });
     } else {
       this.filterItems().forEach((filterLocation) => {
         this.locations().forEach((location) => {
@@ -78,10 +78,10 @@ var ViewModel = function() {
           } else {
             location.itemVisible(false);
           }
-        })
-      })
+        });
+      });
     }
-  }
+  };
 
   this.toggleDisplay = function() {
     if (this.menu.invisible() === false) {
@@ -100,7 +100,7 @@ var ViewModel = function() {
     if (this.menu.visibility === true) {
 
     }
-  }
+  };
 
   this.viewLocation = function(data) {
     // console.log(data);
@@ -108,8 +108,8 @@ var ViewModel = function() {
       if (data.id === marker.id) {
         showListing(marker);
       }
-    })
-  }
+    });
+  };
 };
 
 var Menu = function() {
@@ -124,6 +124,6 @@ var CoffeeShop = function(data) {
   this.location = data.location;
   this.id = data.id;
   this.itemVisible = ko.observable(true);
-}
+};
 
-ko.applyBindings(new ViewModel())
+ko.applyBindings(new ViewModel());
