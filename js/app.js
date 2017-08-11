@@ -17,7 +17,6 @@ var ViewModel = function() {
     if (!filter) { return this.locations(); }
 
     return this.locations().filter(function(i) {
-      console.log(i.title);
       return i.title.toLowerCase().indexOf(filter) > -1;
     });
   }, this);
@@ -63,18 +62,21 @@ var ViewModel = function() {
 
 
   this.inputFilterSubmit = function() {
-    hideMarkers(markers);
     if (this.menu.inputFilter() === "") {
       showListings();
       this.locations().forEach((location) => {
         location.itemVisible(true);
       });
     } else {
+      var locationsTrue = [];
       this.filterItems().forEach((filterLocation) => {
         this.locations().forEach((location) => {
           if (filterLocation.title === location.title) {
+            locationsTrue.push(location.title);
             location.itemVisible(true);
             this.viewLocation(location);
+          } else if (locationsTrue.indexOf(location.title) !== -1) {
+            return
           } else {
             location.itemVisible(false);
           }
@@ -117,7 +119,7 @@ var Menu = function() {
   this.optionsBoxVisible = ko.observable(false);
   this.coffeeShopList = ko.observable(false);
   this.inputFilter = ko.observable("");
-}
+};
 
 var CoffeeShop = function(data) {
   this.title = data.title;
