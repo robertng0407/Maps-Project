@@ -2,6 +2,8 @@ var data = data;
 
 var ViewModel = function() {
 
+  var self = this;
+
   this.menu = new Menu();
 
   this.locations = ko.observableArray();
@@ -57,30 +59,18 @@ var ViewModel = function() {
   };
 
 
-  this.inputFilterSubmit = function() {
+  this.search = function(value) {
+    self.locations.removeAll();
     hideMarkers(markers);
-    if (this.menu.inputFilter() === "") {
-      showListings();
-      this.locations().forEach((location) => {
-        location.itemVisible(true);
-      });
-    } else {
-      var locationsTrue = [];
-      this.filterItems().forEach((filterLocation) => {
-        this.locations().forEach((location) => {
-          if (filterLocation.title === location.title) {
-            locationsTrue.push(location.title);
-            location.itemVisible(true);
-            this.viewLocation(location);
-          } else if (locationsTrue.indexOf(location.title) !== -1) {
-            return
-          } else {
-            location.itemVisible(false);
-          }
-        });
-      });
-    }
+    data.forEach((location) => {
+      if (location.title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+        self.locations.push(new CoffeeShop(location));
+        self.viewLocation(location);
+      };
+    });
   };
+
+  this.menu.inputFilter.subscribe(this.search);
 
   this.toggleDisplay = function() {
     if (this.menu.invisible() === false) {
@@ -110,6 +100,7 @@ var ViewModel = function() {
     });
   };
 };
+
 
 var Menu = function() {
   this.invisible = ko.observable(false);

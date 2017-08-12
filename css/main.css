@@ -150,20 +150,12 @@ li:hover {
 
 input[type="text"]#filterInput {
   display: inline;
-  width: 270px;
+  width: 325px;
   border-radius: 0;
   margin-right: 0;
   /*padding-right: 10px;*/
 }
 
-#filterButton {
-  display: inline;
-  border: 1px solid #c9c9c9;
-  background: white;
-  padding: 6px;
-  width: 45px;
-  margin: 0;
-}
 
 .coffeeShopMenuTitle {
   text-align: center;
