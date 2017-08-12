@@ -24,15 +24,7 @@ var ViewModel = function() {
   }, this);
 
 
-  this.locations().sort((a, b) => {
-    if (a.title < b.title) {
-      return -1;
-    }
-    if (a.title > b.title) {
-      return 1;
-    }
-    return 0;
-  });
+  this.locations().sort((a, b) => a.title > b.title ? 1 : -1);
 
   // This function will loop through the markers array and display them all.
   this.showListings = function() {
