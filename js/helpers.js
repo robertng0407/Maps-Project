@@ -19,10 +19,12 @@ function getVenueInfo(marker) {
         };
         populateInfoWindow(marker, largeInfowindow, venueInfo);
       };
+    },
+    error: function() {
+      window.alert("Sorry, an error has occured...");
     }
-  })
-}
-
+  });
+};
 
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
