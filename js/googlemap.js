@@ -22,9 +22,7 @@ function initMap() {
     styles: styles,
     mapTypeControl: false
   });
-  // This autocomplete is for use in the search within time entry box.
-  var timeAutocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('search-within-time-text'));
+
   // This autocomplete is for use in the geocoder entry box.
   var zoomAutocomplete = new google.maps.places.Autocomplete(
       document.getElementById('zoom-to-area-text'));

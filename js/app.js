@@ -33,14 +33,6 @@ var ViewModel = function() {
     zoomToArea(this.mapModel.zoomToAreaValue());
   };
 
-  this.searchWithinTime = function() {
-    searchWithinTime(
-      this.mapModel.searchWithinTimeValue(),
-      this.mapModel.mode(),
-      this.mapModel.maxDuration()
-    );
-  };
-
   // Listen for the event fired when the user selects a prediction and clicks
   // "go" more details for that place.
   this.textSearchPlaces = function() {
@@ -96,9 +88,6 @@ var Menu = function() {
 
 var MapModel = function() {
   this.zoomToAreaValue = ko.observable();
-  this.searchWithinTimeValue = ko.observable();
-  this.mode = ko.observable();
-  this.maxDuration = ko.observable();
 };
 
 var CoffeeShop = function(data) {

@@ -33,25 +33,6 @@
             </div>
             <hr>
             <div>
-              <span class="text"> Within </span>
-              <select id="max-duration" data-bind="value: mapModel.maxDuration">
-                <option value="10">10 min</option>
-                <option value="15">15 min</option>
-                <option value="30">30 min</option>
-                <option value="60">1 hour</option>
-              </select>
-              <select id="mode" data-bind="value: mapModel.mode">
-                <option value="DRIVING">drive</option>
-                <option value="WALKING">walk</option>
-                <option value="BICYCLING">bike</option>
-                <option value="TRANSIT">transit ride</option>
-              </select>
-              <span class="text">of</span>
-              <input type="text" id="search-within-time-text" placeholder="Ex: Portland State University Foundation" data-bind="value: mapModel.searchWithinTimeValue">
-              <input id="search-within-time" type="button" value="Go" data-bind="click: searchWithinTime">
-            </div>
-            <hr>
-            <div>
               <span class="text">Search for nearby places</span>
               <input id="places-search" type="text" placeholder="Ex: Pizza delivery in Oregon">
               <input id="go-places" type="button" value="Go" data-bind="click: textSearchPlaces">
