@@ -95,10 +95,10 @@ function showListing(marker) {
   map.setZoom(15);
   markers.forEach((marker) => {
     marker.setAnimation(null);
-    // largeInfowindow.close();
+    largeInfowindow.close();
   });
   marker.setAnimation(google.maps.Animation.BOUNCE);
-  // populateInfoWindow(marker, largeInfowindow);
+  getVenueInfo(marker);
 
 }
 // This function will loop through the listings and hide them all.
