@@ -137,11 +137,11 @@ function searchWithinPolygon() {
 // This function takes the input value in the find nearby area text input
 // locates it, and then zooms into that area. This is so that the user can
 // show all listings, then decide to focus on one area of the map.
-function zoomToArea() {
+function zoomToArea(value) {
   // Initialize the geocoder.
   var geocoder = new google.maps.Geocoder();
   // Get the address or place that the user entered.
-  var address = document.getElementById('zoom-to-area-text').value;
+  var address = value;
   // Make sure the address isn't blank.
   if (address == '') {
     window.alert('You must enter an area, or address.');
@@ -165,10 +165,10 @@ function zoomToArea() {
 // This function allows the user to input a desired travel time, in
 // minutes, and a travel mode, and a location - and only show the listings
 // that are within that travel time (via that travel mode) of the location
-function searchWithinTime() {
+function searchWithinTime(address, mode, maxDuration) {
   // Initialize the distance matrix service.
   var distanceMatrixService = new google.maps.DistanceMatrixService;
-  var address = document.getElementById('search-within-time-text').value;
+  var address = address;
   // Check to make sure the place entered isn't blank.
   if (address == '') {
     window.alert('You must enter an address.');
@@ -182,7 +182,7 @@ function searchWithinTime() {
       origins[i] = markers[i].position;
     }
     var destination = address;
-    var mode = document.getElementById('mode').value;
+    var mode = mode;
     // Now that both the origins and destination are defined, get all the
     // info for the distances between them.
     distanceMatrixService.getDistanceMatrix({
@@ -194,15 +194,15 @@ function searchWithinTime() {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
         window.alert('Error was: ' + status);
       } else {
-        displayMarkersWithinTime(response);
+        displayMarkersWithinTime(response, maxDuration);
       }
     });
   }
 }
 // This function will go through each of the results, and,
 // if the distance is LESS than the value in the picker, show it on the map.
-function displayMarkersWithinTime(response) {
-  var maxDuration = document.getElementById('max-duration').value;
+function displayMarkersWithinTime(response, maxDuration) {
+  var maxDuration = maxDuration
   var origins = response.originAddresses;
   var destinations = response.destinationAddresses;
   // Parse through the results, and get the distance and duration of each.

@@ -6,6 +6,8 @@ var ViewModel = function() {
 
   this.locations = ko.observableArray();
 
+  this.mapModel = new MapModel();
+
   data.forEach((location) => {
     this.locations.push(new CoffeeShop(location));
   });
@@ -47,11 +49,13 @@ var ViewModel = function() {
   };
 
   this.zoomToArea = function() {
-    zoomToArea();
+    zoomToArea(this.mapModel.zoomToAreaValue());
   };
 
   this.searchWithinTime = function() {
-    searchWithinTime();
+    searchWithinTime(this.mapModel.searchWithinTimeValue(),
+      this.mapModel.mode(),
+      this.mapModel.maxDuration());
   };
 
   // Listen for the event fired when the user selects a prediction and clicks
@@ -121,6 +125,13 @@ var Menu = function() {
   this.coffeeShopList = ko.observable(false);
   this.inputFilter = ko.observable("");
 };
+
+var MapModel = function() {
+  this.zoomToAreaValue = ko.observable();
+  this.searchWithinTimeValue = ko.observable();
+  this.mode = ko.observable();
+  this.maxDuration = ko.observable();
+}
 
 var CoffeeShop = function(data) {
   this.title = data.title;
