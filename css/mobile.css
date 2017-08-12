@@ -4,6 +4,7 @@
   }
 
   .options-box, .coffee-shop-list {
+    opacity: 0.8;
     z-index: 1;
     width: 300px;
   }
