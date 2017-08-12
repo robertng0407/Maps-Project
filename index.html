@@ -40,16 +40,14 @@
           </div>
           <div class="coffee-shop-list" data-bind="visible: menu.coffeeShopList">
             <h2 class="coffeeShopMenuTitle">Coffee Shops</h2>
-            <input type="text" name="" placeholder="Search for a coffee shop..." id="filterInput" data-bind="value: menu.inputFilter, valueUpdate: 'keyup'" type="search">
+            <input type="text" placeholder="Search for a coffee shop..." id="filterInput" data-bind="value: menu.inputFilter, valueUpdate: 'keyup'">
             <ul data-bind="foreach: locations">
               <li data-bind="text: title, click: $parent.viewLocation"></li>
             </ul>
           </div>
         </div>
       </nav>
-      <section>
-        <div id="map"></div>
-      </section>
+      <div id="map"></div>
     </div>
     <script src="api_key.js"></script>
     <script src="js/styles.js"></script>
@@ -59,6 +57,15 @@
     <script src="js/googlemap.js"></script>
     <script src="js/helpers.js"></script>
     <script src="js/app.js"></script>
+    <script type="text/javascript">
+      (function() {
+        window.setTimeout(() => {
+          if (!window.google || !window.google.maps) {
+            alert("An error has occurred. Map could not be loaded...")
+          }
+        }, 5000);
+      }());
+    </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&v=3&callback=initMap&key=" + API_KEY>
     </script>
