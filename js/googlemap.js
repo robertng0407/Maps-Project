@@ -10,6 +10,8 @@ var coffeePlaces = [];
 
 var largeInfowindow;
 
+var drawingManager;
+
 function initMap() {
 
   var styles = [
@@ -215,7 +217,7 @@ function initMap() {
 
   largeInfowindow = new google.maps.InfoWindow();
   // Initialize the drawing manager.
-  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
     drawingControlOptions: {
@@ -250,6 +252,10 @@ function initMap() {
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfowindow);
     });
+
+    marker.addListener('click', function() {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    });
     // Two event listeners - one for mouseover, one for mouseout,
     // to change the colors back and forth.
     marker.addListener('mouseover', function() {
@@ -259,10 +265,6 @@ function initMap() {
       this.setIcon(defaultIcon);
     });
   }
-
-  document.getElementById('toggle-drawing').addEventListener('click', function() {
-    toggleDrawing(drawingManager);
-  });
 
   // Listen for the event fired when the user selects a prediction from the
   // picklist and retrieve more details for that place.
@@ -292,5 +294,4 @@ function initMap() {
     polygon.getPath().addListener('insert_at', searchWithinPolygon);
   });
 
-  drawingManager = drawingManager;
 }

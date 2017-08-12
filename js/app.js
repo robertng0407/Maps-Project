@@ -62,6 +62,7 @@ var ViewModel = function() {
 
 
   this.inputFilterSubmit = function() {
+    hideMarkers(markers);
     if (this.menu.inputFilter() === "") {
       showListings();
       this.locations().forEach((location) => {

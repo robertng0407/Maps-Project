@@ -110,7 +110,6 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 }
 
-var drawingManager;
 // This shows and hides (respectively) the drawing options.
 function toggleDrawing(drawingManager) {
   if (drawingManager.map) {
