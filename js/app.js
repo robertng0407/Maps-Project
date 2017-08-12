@@ -1,7 +1,6 @@
 var data = data;
 
 var ViewModel = function() {
-
   var self = this;
 
   this.menu = new Menu();
@@ -10,23 +9,11 @@ var ViewModel = function() {
 
   this.mapModel = new MapModel();
 
-  data.forEach((location) => {
+  data.forEach(location => {
     this.locations.push(new CoffeeShop(location));
   });
 
-
-  this.filterItems = ko.computed(function() {
-    var filter = this.menu.inputFilter();
-    filter = filter.toLowerCase();
-    if (!filter) { return this.locations(); }
-
-    return this.locations().filter(function(i) {
-      return i.title.toLowerCase().indexOf(filter) > -1;
-    });
-  }, this);
-
-
-  this.locations().sort((a, b) => a.title > b.title ? 1 : -1);
+  this.locations().sort((a, b) => (a.title > b.title ? 1 : -1));
 
   // This function will loop through the markers array and display them all.
   this.showListings = function() {
@@ -47,9 +34,11 @@ var ViewModel = function() {
   };
 
   this.searchWithinTime = function() {
-    searchWithinTime(this.mapModel.searchWithinTimeValue(),
+    searchWithinTime(
+      this.mapModel.searchWithinTimeValue(),
       this.mapModel.mode(),
-      this.mapModel.maxDuration());
+      this.mapModel.maxDuration()
+    );
   };
 
   // Listen for the event fired when the user selects a prediction and clicks
@@ -58,15 +47,14 @@ var ViewModel = function() {
     textSearchPlaces();
   };
 
-
   this.search = function(value) {
     self.locations.removeAll();
     hideMarkers(markers);
-    data.forEach((location) => {
+    data.forEach(location => {
       if (location.title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
         self.locations.push(new CoffeeShop(location));
         self.viewLocation(location);
-      };
+      }
     });
   };
 
@@ -87,20 +75,17 @@ var ViewModel = function() {
     }
 
     if (this.menu.visibility === true) {
-
     }
   };
 
   this.viewLocation = function(data) {
-    // console.log(data);
-    markers.forEach((marker) => {
+    markers.forEach(marker => {
       if (data.id === marker.id) {
         showListing(marker);
       }
     });
   };
 };
-
 
 var Menu = function() {
   this.invisible = ko.observable(false);
@@ -114,13 +99,12 @@ var MapModel = function() {
   this.searchWithinTimeValue = ko.observable();
   this.mode = ko.observable();
   this.maxDuration = ko.observable();
-}
+};
 
 var CoffeeShop = function(data) {
   this.title = data.title;
   this.location = data.location;
   this.id = data.id;
-  this.itemVisible = ko.observable(true);
 };
 
 ko.applyBindings(new ViewModel());

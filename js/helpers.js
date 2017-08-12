@@ -1,24 +1,33 @@
-// Generates random fact about a number using the numbersapi.
-// This will display inside of a marker infowindow.
-function randomFactsGenerator(min, max) {
-  var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  var url = 'http://numbersapi.com/' + randomNumber;
+// This function will make a make a request to a third party API Foursquare
+function getVenueInfo(marker) {
+  var url = "https://api.foursquare.com/v2/venues/search?v=20170812&client_id=" + FOURSQUARE_ID + "&client_secret=" + FOURSQUARE_SECRET;
+  url += "&limit=1&ll=" + marker.position.lat() + "," + marker.position.lng();
   $.ajax({
-  	url: url,
+    type: 'get',
+    url: url,
+    datatype: 'json',
     success: function(data) {
-      if (data.length > 0) {
-        $('#randomFact').text("\"" + data + "\"");
+      if (data.meta.code !== 200) {
+        window.alert("An error has occured...");
       } else {
-        $('#randomFact').text("Sorry, fact could not be loaded...");
-      }
+        var crossStreet = data.response.venues[0].location.crossStreet !== undefined ? data.response.venues[0].location.crossStreet : "Data not found";
+        var checkins = data.response.venues[0].stats.checkinsCount !== undefined ? data.response.venues[0].stats.checkinsCount : "None Found";
+        var venueInfo = {
+          crossStreet: crossStreet,
+          checkins: data.response.venues[0].stats.checkinsCount,
+          hereNow: data.response.venues[0].hereNow.summary
+        };
+        populateInfoWindow(marker, largeInfowindow, venueInfo);
+      };
     }
   })
 }
 
+
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
-function populateInfoWindow(marker, infowindow) {
+function populateInfoWindow(marker, infowindow, venueInfo) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
     // Clear the infowindow content to give the streetview time to load.
@@ -39,7 +48,9 @@ function populateInfoWindow(marker, infowindow) {
         var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
           infowindow.setContent('<div align="center"><div><h3>' + marker.title + '</h3></div><div id="pano"></div><hr>'
-                                  + '<p><strong>Random Fact</strong></p>' + '<div id="randomFact" class="randomFact"></div></div>');
+                                  + '<p><strong>Location Info</strong></p>' + '<p><strong>Cross Street:</strong> ' + venueInfo.crossStreet
+                                  + '<p><strong>Checkins:</strong> ' + venueInfo.checkins + " people"
+                                  + '<p><strong>Crowdedness:</strong> ' + venueInfo.hereNow);
           var panoramaOptions = {
             position: nearStreetViewLocation,
             pov: {
@@ -47,7 +58,6 @@ function populateInfoWindow(marker, infowindow) {
               pitch: 30
             }
           };
-          randomFactsGenerator(1, 100);
         var panorama = new google.maps.StreetViewPanorama(
           document.getElementById('pano'), panoramaOptions);
       } else {
@@ -78,16 +88,15 @@ function showListings() {
 function showListing(marker) {
   var bounds = new google.maps.LatLngBounds();
   marker.setMap(map);
-
   bounds.extend(marker.position);
   map.fitBounds(bounds);
   map.setZoom(15);
   markers.forEach((marker) => {
     marker.setAnimation(null);
-    largeInfowindow.close();
+    // largeInfowindow.close();
   });
   marker.setAnimation(google.maps.Animation.BOUNCE);
-  populateInfoWindow(marker, largeInfowindow);
+  // populateInfoWindow(marker, largeInfowindow);
 
 }
 // This function will loop through the listings and hide them all.
