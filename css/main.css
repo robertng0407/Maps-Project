@@ -150,10 +150,9 @@ li:hover {
 
 input[type="text"]#filterInput {
   display: inline;
-  width: 325px;
+  width: 324px;
   border-radius: 0;
   margin-right: 0;
-  /*padding-right: 10px;*/
 }
 
 

@@ -36,7 +36,7 @@ var ViewModel = function() {
   // Listen for the event fired when the user selects a prediction and clicks
   // "go" more details for that place.
   this.textSearchPlaces = function() {
-    textSearchPlaces();
+    textSearchPlaces(this.mapModel.placesSearch());
   };
 
   this.search = function(value) {
@@ -70,10 +70,19 @@ var ViewModel = function() {
     }
   };
 
-  this.viewLocation = function(data) {
+  this.viewLocationData = function(data) {
+    self.viewLocation(data, true);
+  };
+
+  this.viewLocation = function(data, infoWindow) {
+    if (infoWindow) {
+      var viewInfo = true;
+    }
     markers.forEach(marker => {
       if (data.id === marker.id) {
-        showListing(marker);
+        showListing(marker, viewInfo);
+      } else {
+        stopAnimation(marker);
       }
     });
   };
@@ -88,6 +97,7 @@ var Menu = function() {
 
 var MapModel = function() {
   this.zoomToAreaValue = ko.observable();
+  this.placesSearch = ko.observable();
 };
 
 var CoffeeShop = function(data) {

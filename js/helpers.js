@@ -87,26 +87,28 @@ function showListings() {
 }
 
 // This function will loop through the markers array and display them all.
-function showListing(marker) {
+function showListing(marker, viewInfo) {
   var bounds = new google.maps.LatLngBounds();
   marker.setMap(map);
   bounds.extend(marker.position);
   map.fitBounds(bounds);
   map.setZoom(15);
-  markers.forEach((marker) => {
-    marker.setAnimation(null);
-    largeInfowindow.close();
-  });
   marker.setAnimation(google.maps.Animation.BOUNCE);
-  getVenueInfo(marker);
+  if (viewInfo) {
+    getVenueInfo(marker);
+  };
+};
 
-}
+function stopAnimation(marker) {
+  marker.setAnimation(null);
+  largeInfowindow.close();
+};
 // This function will loop through the listings and hide them all.
 function hideMarkers(markers) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
-  }
-}
+  };
+};
 // This function takes in a COLOR, and then creates a new marker
 // icon of that color. The icon will be 21 px wide by 34 high, have an origin
 // of 0, 0 and be anchored at 10, 34).
@@ -119,7 +121,7 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Point(10, 34),
     new google.maps.Size(21,34));
   return markerImage;
-}
+};
 
 // This shows and hides (respectively) the drawing options.
 function toggleDrawing(drawingManager) {
@@ -132,7 +134,7 @@ function toggleDrawing(drawingManager) {
   } else {
     drawingManager.setMap(map);
   }
-}
+};
 // This function hides all markers outside the polygon,
 // and shows only the ones within it. This is so that the
 // user can specify an exact area of search.
@@ -144,7 +146,7 @@ function searchWithinPolygon() {
       markers[i].setMap(null);
     }
   }
-}
+};
 // This function takes the input value in the find nearby area text input
 // locates it, and then zooms into that area. This is so that the user can
 // show all listings, then decide to focus on one area of the map.
@@ -188,12 +190,12 @@ function searchBoxPlaces(searchBox) {
 }
 // This function firest when the user select "go" on the places search.
 // It will do a nearby search using the entered query string or place.
-function textSearchPlaces() {
+function textSearchPlaces(placesSearch) {
   var bounds = map.getBounds();
   hideMarkers(placeMarkers);
   var placesService = new google.maps.places.PlacesService(map);
   placesService.textSearch({
-    query: document.getElementById('places-search').value,
+    query: placesSearch,
     bounds: bounds
   }, function(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {

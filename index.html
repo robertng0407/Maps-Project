@@ -34,21 +34,22 @@
             <hr>
             <div>
               <span class="text">Search for nearby places</span>
-              <input id="places-search" type="text" placeholder="Ex: Pizza delivery in Oregon">
+              <input id="places-search" type="text" placeholder="Ex: Pizza delivery in Oregon" data-bind="textInput: mapModel.placesSearch">
               <input id="go-places" type="button" value="Go" data-bind="click: textSearchPlaces">
             </div>
           </div>
           <div class="coffee-shop-list" data-bind="visible: menu.coffeeShopList">
             <h2 class="coffeeShopMenuTitle">Coffee Shops</h2>
-            <input type="text" placeholder="Search for a coffee shop..." id="filterInput" data-bind="value: menu.inputFilter, valueUpdate: 'keyup'">
+            <input type="text" placeholder="Search for a coffee shop..." id="filterInput" data-bind="value: menu.inputFilter, valueUpdate: 'afterkeydown'">
             <ul data-bind="foreach: locations">
-              <li data-bind="text: title, click: $parent.viewLocation"></li>
+              <li data-bind="text: title, click: $parent.viewLocationData"></li>
             </ul>
           </div>
         </div>
       </nav>
       <div id="map"></div>
     </div>
+    <script src="js/errorhandling.js"></script>
     <script src="api_key.js"></script>
     <script src="js/styles.js"></script>
     <script src="js/lib/knockout-3.4.2.js"></script>
@@ -57,17 +58,8 @@
     <script src="js/googlemap.js"></script>
     <script src="js/helpers.js"></script>
     <script src="js/app.js"></script>
-    <script type="text/javascript">
-      (function() {
-        window.setTimeout(() => {
-          if (!window.google || !window.google.maps) {
-            alert("An error has occurred. Map could not be loaded...")
-          }
-        }, 5000);
-      }());
-    </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&v=3&callback=initMap&key=" + API_KEY>
+        onerror="errorHandling(event)" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&v=3&callback=initMap&key=" + API_KEY>
     </script>
   </body>
 </html>
