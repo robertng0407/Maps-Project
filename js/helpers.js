@@ -80,7 +80,7 @@ function showListings() {
   var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
   for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
+    markers[i].setVisible(true);
     bounds.extend(markers[i].position);
   }
   map.fitBounds(bounds);
@@ -89,7 +89,7 @@ function showListings() {
 // This function will loop through the markers array and display them all.
 function showListing(marker, viewInfo) {
   var bounds = new google.maps.LatLngBounds();
-  marker.setMap(map);
+  marker.setVisible(true);
   bounds.extend(marker.position);
   map.fitBounds(bounds);
   map.setZoom(15);
@@ -106,7 +106,7 @@ function stopAnimation(marker) {
 // This function will loop through the listings and hide them all.
 function hideMarkers(markers) {
   for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
+    markers[i].setVisible(false);
   };
 };
 // This function takes in a COLOR, and then creates a new marker
