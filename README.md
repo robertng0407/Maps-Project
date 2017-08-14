@@ -1,7 +1,7 @@
 # PORTLAND COFFEE BREWRU
 
 This maps application uses the Google Maps API to display local coffee shops in Portland, Oregon.
-The Foursquare API (numbersapi.com) is used as well to generate more information about the location inside
+The Foursquare API is used as well to generate more information about the location inside
 the infowindow when a marker is clicked.
 
 ## Instructions
